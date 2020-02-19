@@ -16,14 +16,14 @@ after_success:
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker tag ortizjd-jmu/multi-client:latest ortizjd/multi-docker:myfirstimagepush1
-  - docker tag ortizjd-jmu/multi-nginx:latest ortizjd/multi-docker:myfirstimagepush2
-  - docker tag ortizjd-jmu/multi-server:latest ortizjd/multi-docker:myfirstimagepush3
-  - docker tag ortizjd-jmu/multi-worker:latest ortizjd/multi-docker:myfirstimagepush4
+  - docker tag ortizjd-jmu/multi-client:latest ortizjd/multi-docker:multi-client
+  - docker tag ortizjd-jmu/multi-nginx:latest ortizjd/multi-docker:multi-nginx
+  - docker tag ortizjd-jmu/multi-server:latest ortizjd/multi-docker:multi-server
+  - docker tag ortizjd-jmu/multi-worker:latest ortizjd/multi-docker:multi-worker
 
-  - docker push ortizjd/multi-docker:myfirstimagepush1
-  - docker push ortizjd/multi-docker:myfirstimagepush2
-  - docker push ortizjd/multi-docker:myfirstimagepush3
-  - docker push ortizjd/multi-docker:myfirstimagepush4
+  - docker push ortizjd/multi-docker:multi-client
+  - docker push ortizjd/multi-docker:multi-nginx
+  - docker push ortizjd/multi-docker:multi-server
+  - docker push ortizjd/multi-docker:multi-worker
 
 language: generic
