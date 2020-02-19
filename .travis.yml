@@ -2,7 +2,7 @@ sudo: required
 services:
   - docker
 
-before_install: 
+before_install:
   - docker build -t ortizjd-jmu/react-test -f ./client/Dockerfile.dev ./client
 
 script:
@@ -16,9 +16,9 @@ after_success:
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push ortizjd-jmu/multi-client
-  - docker push ortizjd-jmu/multi-nginx
-  - docker push ortizjd-jmu/multi-server
-  - docker push ortizjd-jmu/multi-worker
+  - docker push ortizjd/multi-docker:ortizjd-jmu/multi-client
+  - docker push ortizjd/multi-docker:ortizjd-jmu/multi-nginx
+  - docker push ortizjd/multi-docker:ortizjd-jmu/multi-server
+  - docker push ortizjd/multi-docker:ortizjd-jmu/multi-worker
 
 language: generic
