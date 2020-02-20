@@ -2,7 +2,7 @@ sudo: required
 services:
   - docker
 
-before_install: 
+before_install:
   - docker build -t ortizjd-jmu/react-test -f ./client/Dockerfile.dev ./client
 
 script:
@@ -16,9 +16,25 @@ after_success:
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push ortizjd-jmu/multi-client
-  - docker push ortizjd-jmu/multi-nginx
-  - docker push ortizjd-jmu/multi-server
-  - docker push ortizjd-jmu/multi-worker
+  - docker tag ortizjd-jmu/multi-client:latest ortizjd/multi-docker:multi-client
+  - docker tag ortizjd-jmu/multi-nginx:latest ortizjd/multi-docker:multi-nginx
+  - docker tag ortizjd-jmu/multi-server:latest ortizjd/multi-docker:multi-server
+  - docker tag ortizjd-jmu/multi-worker:latest ortizjd/multi-docker:multi-worker
 
-language: generic
+  - docker push ortizjd/multi-docker:multi-client
+  - docker push ortizjd/multi-docker:multi-nginx
+  - docker push ortizjd/multi-docker:multi-server
+  - docker push ortizjd/multi-docker:multi-worker
+
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+  region: us-east-1
+  app: multi-docker
+  env: MultiDocker-env
+  bucket_name: elasticbeanstalk-us-east-1-263638668305
+  bucket_path: docker-multi
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
